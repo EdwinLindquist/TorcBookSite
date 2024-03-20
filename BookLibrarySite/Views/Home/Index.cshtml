@@ -1,0 +1,50 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Books Library</h1>
+
+    @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+    {
+        <p>
+            Search by:
+            <select name="searchField">
+                <option value="ISBN">ISBN</option>
+                <option value="Author">Author</option>
+            </select>
+            <input type="text" name="searchValue" value="@ViewData["SearchValue"]" />
+            <input type="submit" value="Search" />
+        </p>
+    }
+
+    <h1>List of Books</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Book Title</th>
+                <th>Authors</th>
+                <th>Type</th>
+                <th>ISBN</th>
+                <th>Category</th>
+                <th>Available Copies</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var obj in Model as List<Book>)
+            {
+                <tr>
+                    <td>@obj.Title</td>
+                    <td>@(obj.FirstName + " " + obj.LastName)</td>
+                    <td>@obj.Type</td>
+                    <td>@obj.Isbn</td>
+                    <td>@obj.Category</td>
+                    <td>@(obj.TotalCopies - obj.CopiesInUse)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
